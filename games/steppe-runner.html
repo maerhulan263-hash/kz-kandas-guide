@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>草原骑手 Steppe Runner · 哈知手册</title>
+<meta name="description" content="草原骑手（Steppe Runner）—— 一个哈萨克斯坦草原风格的无限跑酷小游戏。">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="steppe-runner.css">
+</head>
+<body class="game-body">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html#/" class="brand">
+      <span class="brand-mark">哈知手册</span>
+      <span class="brand-sub">KZ Handbook</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html#/">首页</a>
+      <a href="../index.html#/calculator">生活计算器</a>
+      <a href="../index.html#/qa">问答社区</a>
+    </nav>
+  </div>
+</header>
+
+<main class="game-main">
+  <div class="game-title-block">
+    <h1 class="game-title">草原骑手 <span class="game-title-en">Steppe Runner</span></h1>
+    <p class="game-subtitle">RUN BEYOND THE STEPPE</p>
+  </div>
+
+  <div class="game-wrap" id="gameWrap">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- 开始界面 -->
+    <div class="game-overlay" id="startScreen">
+      <div class="overlay-box">
+        <h2>草原骑手</h2>
+        <p class="overlay-hint">按 <strong>空格</strong> 或点击屏幕开始奔跑</p>
+        <p class="overlay-controls">
+          PC：空格/↑ 跳跃　↓ 下蹲　P 暂停　R 重开<br>
+          手机：点击屏幕跳跃　向下滑动下蹲
+        </p>
+        <button class="game-btn" id="startBtn">开始游戏</button>
+      </div>
+    </div>
+
+    <!-- 游戏内 HUD -->
+    <div class="game-hud" id="gameHud" style="display:none;">
+      <div class="hud-distance">DISTANCE <span id="hudDistance">0</span> m</div>
+      <div class="hud-score">SCORE <span id="hudScore">0</span></div>
+    </div>
+
+    <!-- 暂停界面 -->
+    <div class="game-overlay" id="pauseScreen" style="display:none;">
+      <div class="overlay-box">
+        <h2>已暂停</h2>
+        <p class="overlay-hint">按 P 或点击继续</p>
+        <button class="game-btn" id="resumeBtn">继续</button>
+      </div>
+    </div>
+
+    <!-- 死亡界面 -->
+    <div class="game-overlay" id="gameOverScreen" style="display:none;">
+      <div class="overlay-box">
+        <h2 class="gameover-title">GAME OVER</h2>
+        <div class="gameover-stats">
+          <div class="stat-row"><span>DISTANCE</span><strong id="finalDistance">0 m</strong></div>
+          <div class="stat-row"><span>SCORE</span><strong id="finalScore">0</strong></div>
+          <div class="stat-row"><span>BEST</span><strong id="finalBest">0</strong></div>
+        </div>
+        <div class="gameover-btns">
+          <button class="game-btn" id="retryBtn">RETRY</button>
+        </div>
+        <p class="overlay-note">按 R 快速重开</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="game-phase-note">🚧 当前是 Phase 1（核心玩法版本），草原视觉、连击、道具、天气和全球排行榜正在后续阶段陆续加入。</p>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>哈知手册 · 一个正在慢慢长大的资料库</p>
+  </div>
+</footer>
+
+<script src="steppe-runner.js"></script>
+</body>
+</html>
