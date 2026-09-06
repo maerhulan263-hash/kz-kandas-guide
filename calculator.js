@@ -159,6 +159,9 @@ function renderCostCalculator() {
       <button class="calc-preset-btn" data-preset="solo">🏠 一人独居模式</button>
     </div>
     <div class="calc-form">
+      ${inputRow("costIncome", "你的月收入（选填，用来算结余）", "500000")}
+    </div>
+    <div class="calc-form">
       ${fields.map(([id, label]) => inputRow(id, label, "0")).join("")}
     </div>
     <div class="calc-result-box" id="costResult"></div>
@@ -176,20 +179,31 @@ function renderCostCalculator() {
   function recalc() {
     const total = fields.reduce((sum, [id]) => sum + num(id), 0);
     const tier = tierOf(total);
-    const income = 500000;
-    const left = income - total;
-    const yearly = left * 12;
+    const income = num("costIncome");
+
+    let incomeLine = "";
+    if (income > 0) {
+      const left = income - total;
+      const yearly = left * 12;
+      incomeLine = `
+        <p>你填的月收入是 ${fmtT(income)}，每月大约能剩 <strong>${fmtT(left)}</strong></p>
+        <p>照这个节奏，一年大约能存 <strong>${fmtT(Math.max(yearly, 0))}</strong></p>
+        ${left < 0 ? `<p class="calc-warning">⚠️ 支出已经超过收入了，可能需要精简一些开销，或者去"我属于什么生活水平"那个工具里再详细看看。</p>` : ""}
+      `;
+    } else {
+      incomeLine = `<p class="calc-hint">在上面填一下你的月收入，可以看到每月能剩多少、一年能存多少。</p>`;
+    }
 
     document.getElementById("costResult").innerHTML = `
       <div class="calc-result-main">你的月生活成本：<strong>${fmtT(total)}</strong></div>
       <div class="calc-tier-badge" style="background:${tier.color}">属于：${tier.name}</div>
       <div class="calc-result-detail">
-        <p>如果月收入是 ${fmtT(income)}，每月大约能剩 <strong>${fmtT(left)}</strong></p>
-        <p>照这个节奏，一年大约能存 <strong>${fmtT(Math.max(yearly, 0))}</strong></p>
-        ${left < 0 ? `<p class="calc-warning">⚠️ 按这个假设的收入，支出已经超过收入了，如果实际收入不同，可以去"我属于什么生活水平"那个工具里输入你自己的真实收入再算一次。</p>` : ""}
+        ${incomeLine}
       </div>
     `;
   }
+
+  document.getElementById("costIncome").addEventListener("input", recalc);
 
   fields.forEach(([id]) => document.getElementById(id).addEventListener("input", recalc));
   document.querySelectorAll(".calc-preset-btn").forEach((btn) => {
