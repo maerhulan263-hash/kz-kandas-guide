@@ -104,15 +104,17 @@ function renderAuthModal() {
       </div>
 
       <form id="loginForm" class="modal-form">
-        <input type="email" id="loginEmail" placeholder="邮箱" required autocomplete="email">
+        <input type="email" id="loginEmail" placeholder="邮箱，例如 name@example.com" required autocomplete="email">
+        <p class="field-hint">登录用的是注册时填的邮箱地址，不是昵称</p>
         <input type="password" id="loginPassword" placeholder="密码" required autocomplete="current-password">
         <p class="modal-error" id="loginError"></p>
         <button type="submit" class="btn-primary">登录</button>
       </form>
 
       <form id="registerForm" class="modal-form" style="display:none;">
-        <input type="text" id="registerNickname" placeholder="昵称（会公开显示）" required maxlength="20">
-        <input type="email" id="registerEmail" placeholder="邮箱" required autocomplete="email">
+        <input type="text" id="registerNickname" placeholder="昵称（支持中文，会公开显示）" required maxlength="20">
+        <input type="email" id="registerEmail" placeholder="邮箱，例如 name@example.com" required autocomplete="email">
+        <p class="field-hint">邮箱是用来登录的账号，昵称只是显示名字，两者不是同一个东西</p>
         <input type="password" id="registerPassword" placeholder="密码（至少 6 位）" required minlength="6" autocomplete="new-password">
         <p class="modal-error" id="registerError"></p>
         <p class="modal-hint" id="registerHint"></p>
@@ -146,6 +148,12 @@ function renderAuthModal() {
     const password = document.getElementById("loginPassword").value;
     const errorEl = document.getElementById("loginError");
     errorEl.textContent = "";
+
+    if (!email.includes("@")) {
+      errorEl.textContent = "这里要填邮箱地址（比如 name@example.com），不是昵称。";
+      return;
+    }
+
     const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) {
       errorEl.textContent = "登录失败：邮箱或密码不对，或者账号还没验证邮箱。";
