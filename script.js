@@ -62,9 +62,9 @@ function qaBannerHtml() {
       <div class="container qa-banner-inner">
         <div>
           <h3>有具体问题？</h3>
-          <p>问答社区正在建设中，目前有任何问题可以先在群里提问。</p>
+          <p>问答社区已经上线，登录后可以直接发帖提问，也欢迎在群里交流。</p>
         </div>
-        <a class="btn-ghost" href="#/qa">查看详情 →</a>
+        <a class="btn-ghost" href="#/qa">去问答社区 →</a>
       </div>
     </div>
   `;
