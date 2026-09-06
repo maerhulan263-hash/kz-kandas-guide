@@ -338,6 +338,20 @@ function route() {
         renderQA();
       }
       break;
+    case "calculator":
+      setActiveNav("calculator");
+      switch (segments[1]) {
+        case "cost": renderCostCalculator(); break;
+        case "salary": renderSalaryCalculator(); break;
+        case "rent": renderRentCalculator(); break;
+        case "food": renderFoodCalculator(); break;
+        case "commute": renderCommuteCalculator(); break;
+        case "exchange": renderExchangeCalculator(); break;
+        case "level": renderLevelCalculator(); break;
+        case "student": renderStudentBudgetCalculator(); break;
+        default: renderCalculatorHub();
+      }
+      break;
     default:
       setActiveNav(null);
       renderNotFound();
